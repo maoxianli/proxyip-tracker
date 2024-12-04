@@ -27,24 +27,3 @@ jobs:
 
       - name: Test the Proxy IPs
         run: python "scripts/cfSpeedTest.py"
-
-      - name: Map the IPs with domain names
-        run: python "scripts/mapDomain.py"
-
-      - name: Update upstream DNS record
-        run: python "scripts/cfRecUpdate.py"
-        env: 
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Configure Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-
-      - name: Commit and Push Changes
-        run: |
-          git add .
-          git commit -m "Automated update of IP mappings and DNS records"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
